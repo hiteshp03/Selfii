@@ -1,0 +1,23 @@
+from kivy.app import App
+from kivy.uix.camera import Camera
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
+
+class app_selfie(App):
+    def make(self):
+        self.obj_camera = Camera()
+        self.obj_camera.resolution = (800,800)
+        obj_btn = Button(text = "Click")
+        obj_btn.size_hint = (.5,.2)
+        obj_btn.pos_hint = {'x':.25, 'y':.25}
+        obj_btn.bind(on_press = self.selfie_take)
+        obj_layout = BoxLayout()
+        obj_layout.add_widget(self.obj_camera)
+        obj_layout.add_widget(obj_btn)
+        return obj_layout
+
+    def selfie_take(self, *args):
+        print("Selfie has been taken succesfully")
+        self.obj_camera.export_to_png('./demoselfie.png')
+if __name__ == '__main__':
+    app_selfie().run()
